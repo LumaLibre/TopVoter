@@ -1,0 +1,13 @@
+name: TopVoter
+version: '${version}'
+main: dev.jsinco.topvoter.TopVoter
+api-version: '1.20'
+author: Jsinco
+softdepend: [PlaceholderAPI]
+commands:
+  headsapiverbosity:
+    description: 'Toggles HeadsAPI verbosity'
+    permission: 'topvoter.admin'
+  voterreset:
+    description: 'Resets the votes'
+    permission: 'topvoter.admin'

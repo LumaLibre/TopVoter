@@ -1,0 +1,16 @@
+# TopVoter Config
+# Votes are tracked and reset on 'reset-day'. The plugin checks if it's reset day every time it starts up
+# Placeholders: %topvoter_spot_<spot>% returns the players name,
+# %topvoter_spot<spot>_votes% returns the amount of votes they have in the month so far
+# %topvoter_get_<name>%, returns the amount of votes the player has in the month so far
+# %topvoter_get%, returns the amount of votes the provided player has in the month so far
+
+# The day of the month the plugin should reset votes it's tracked
+# Set to a negative number if you never want it to reset, and you just want to record votes/reset manually
+reset-day: -1
+
+# The message printed to console after reset
+reset-log: "It's the first of the month! Votes have been reset!"
+
+# Message for when a spot has not been filled and a placeholder tries to call it
+empty-spot: "No one!"
