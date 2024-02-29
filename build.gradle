@@ -31,7 +31,7 @@ dependencies {
     compileOnly 'com.github.NuVotifier:NuVotifier:2.7.2'
     compileOnly 'me.clip:placeholderapi:2.11.3'
     compileOnly 'com.github.Jsinco:LumaJDA:1.0.0'
-    implementation 'com.github.Jsinco:HeadsAPI:1.6'
+    compileOnly 'com.github.Jsinco:TextureAPI:2.0'
 }
 
 def targetJavaVersion = 17

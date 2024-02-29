@@ -1,6 +1,7 @@
 package dev.jsinco.topvoter.placeholderapi.placeholders;
 
-import dev.jsinco.headsapi.HeadsAPI;
+import dev.jsinco.textureapi.TextureAPI;
+import dev.jsinco.textureapi.storage.CachedTexture;
 import dev.jsinco.topvoter.TopVoter;
 import dev.jsinco.topvoter.VotersFile;
 import dev.jsinco.topvoter.placeholderapi.Placeholder;
@@ -33,6 +34,7 @@ public class SpotHead64Texture implements Placeholder {
             uuid = Bukkit.getOfflinePlayer(voterToGet).getUniqueId();
         }
 
-        return HeadsAPI.getBase64(uuid);
+        CachedTexture texture = TextureAPI.getTexture(uuid, true);
+        return texture.getBase64();
     }
 }

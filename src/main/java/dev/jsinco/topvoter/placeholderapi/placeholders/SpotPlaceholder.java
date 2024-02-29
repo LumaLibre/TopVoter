@@ -2,7 +2,6 @@ package dev.jsinco.topvoter.placeholderapi.placeholders;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import dev.jsinco.headsapi.HeadsAPI;
 import dev.jsinco.topvoter.TopVoter;
 import dev.jsinco.topvoter.VotersFile;
 import dev.jsinco.topvoter.placeholderapi.Placeholder;
@@ -39,18 +38,9 @@ public class SpotPlaceholder implements Placeholder {
             OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(UUID.fromString(voterToGet));
             if (offlinePlayer.getName() != null) {
                 return offlinePlayer.getName();
+            } else {
+                return "Can't resolve username";
             }
-            StringBuilder content = null;
-            try {
-                content = HeadsAPI.getMinecraftProfile(voterToGet);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            if (content == null) {
-                return null;
-            }
-            JsonObject jsonObject = gson.fromJson(content.toString(), JsonObject.class);
-            return jsonObject.get("name").getAsString();
         } else if (args.get(1).equals("votes")) {
             if (voterToGet.length() == 36) {
                 return String.valueOf(topVoters.get(voterToGet));
