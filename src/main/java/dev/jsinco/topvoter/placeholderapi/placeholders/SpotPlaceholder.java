@@ -1,22 +1,18 @@
 package dev.jsinco.topvoter.placeholderapi.placeholders;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import dev.jsinco.topvoter.TopVoter;
+import dev.jsinco.topvoter.Util;
 import dev.jsinco.topvoter.VotersFile;
 import dev.jsinco.topvoter.placeholderapi.Placeholder;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.jetbrains.annotations.Nullable;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 public class SpotPlaceholder implements Placeholder {
-
-    private final Gson gson = new Gson();
 
     @Override
     public @Nullable String onPlaceholderRequest(TopVoter plugin, @Nullable OfflinePlayer player, List<String> args) {
@@ -32,7 +28,7 @@ public class SpotPlaceholder implements Placeholder {
             return plugin.getConfig().getString("empty-spot");
         }
 
-        String voterToGet = TopVoter.getPlayerUUIDIfCached(topVoters.keySet().toArray()[num].toString());
+        String voterToGet = Util.getPlayerUUIDOrName(topVoters.keySet().toArray()[num].toString());
 
         if (args.size() < 2) {
             OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(UUID.fromString(voterToGet));

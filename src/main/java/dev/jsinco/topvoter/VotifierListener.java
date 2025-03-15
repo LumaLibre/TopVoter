@@ -1,6 +1,7 @@
 package dev.jsinco.topvoter;
 
 import com.vexsoftware.votifier.model.VotifierEvent;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
@@ -10,12 +11,14 @@ public class VotifierListener implements Listener {
     public void onVoteReceived(VotifierEvent event) {
         if (event.getVote().getUsername() == null) return;
 
-        String userName = TopVoter.getPlayerUUIDIfCached(event.getVote().getUsername());
+        String userName = Util.getPlayerUUIDOrName(event.getVote().getUsername());
 
-        if (VotersFile.get().contains(userName)) {
-            VotersFile.get().set(userName, VotersFile.get().getInt(userName) + 1);
+        FileConfiguration file = VotersFile.get();
+
+        if (file.contains(userName)) {
+            file.set(userName, file.getInt(userName) + 1);
         } else {
-            VotersFile.get().set(userName, 1);
+            file.set(userName, 1);
         }
         VotersFile.save();
     }

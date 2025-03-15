@@ -1,8 +1,8 @@
 package dev.jsinco.topvoter.placeholderapi.placeholders;
 
-import dev.jsinco.textureapi.TextureAPI;
-import dev.jsinco.textureapi.storage.CachedTexture;
+import com.destroystokyo.paper.profile.ProfileProperty;
 import dev.jsinco.topvoter.TopVoter;
+import dev.jsinco.topvoter.Util;
 import dev.jsinco.topvoter.VotersFile;
 import dev.jsinco.topvoter.placeholderapi.Placeholder;
 import org.bukkit.Bukkit;
@@ -25,16 +25,16 @@ public class SpotHead64Texture implements Placeholder {
             return plugin.getConfig().getString("empty-spot");
         }
 
-        String voterToGet = TopVoter.getPlayerUUIDIfCached(topVoters.keySet().toArray()[num].toString());
-        UUID uuid;
+        String voterToGet = Util.getPlayerUUIDOrName(topVoters.keySet().toArray()[num].toString());
+        UUID uuid = Util.uuidOrNull(voterToGet);
+        OfflinePlayer voter = uuid != null ? Bukkit.getOfflinePlayer(uuid) : Bukkit.getOfflinePlayer(voterToGet);
 
-        try {
-            uuid = UUID.fromString(voterToGet);
-        } catch (IllegalArgumentException e) {
-            uuid = Bukkit.getOfflinePlayer(voterToGet).getUniqueId();
+
+        for (ProfileProperty profileProperty : voter.getPlayerProfile().getProperties()) {
+            if (profileProperty.getName().equalsIgnoreCase("texture")) {
+                return profileProperty.getValue();
+            }
         }
-
-        CachedTexture texture = TextureAPI.getTexture(uuid, true);
-        return texture.getBase64();
+        return Util.DEFAULT_TEXTURE;
     }
 }

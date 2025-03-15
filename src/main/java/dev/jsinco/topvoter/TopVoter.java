@@ -2,6 +2,9 @@ package dev.jsinco.topvoter;
 
 import dev.jsinco.topvoter.commands.VoterReset;
 import dev.jsinco.topvoter.placeholderapi.PlaceholderManager;
+import dev.jsinco.topvoter.webserver.JavalinServer;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.core.Logger;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -13,6 +16,7 @@ public final class TopVoter extends JavaPlugin {
     private static boolean papiEnabled;
     private static PlaceholderManager placeholderManager;
     private static final Calendar calendar = Calendar.getInstance();
+    private static JavalinServer javalinServer;
 
     @Override
     public void onEnable() {
@@ -40,6 +44,11 @@ public final class TopVoter extends JavaPlugin {
             plugin.getConfig().set("already-reset-day", false);
             plugin.saveConfig();
         }
+
+        Logger logger = (Logger) LogManager.getRootLogger();
+        logger.addFilter(new LogFilter());
+        javalinServer = new JavalinServer();
+        javalinServer.start();
     }
 
     @Override
@@ -47,13 +56,12 @@ public final class TopVoter extends JavaPlugin {
         if (papiEnabled) {
             placeholderManager.unregister();
         }
+        javalinServer.stop();
     }
 
     public static TopVoter getInstance() {
         return plugin;
     }
 
-    public static String getPlayerUUIDIfCached(String playerName) {
-        return Bukkit.getOfflinePlayerIfCached(playerName) != null ? Bukkit.getOfflinePlayerIfCached(playerName).getUniqueId().toString() : playerName;
-    }
+
 }

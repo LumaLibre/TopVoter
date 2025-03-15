@@ -14,3 +14,8 @@ reset-log: "It's the first of the month! Votes have been reset!"
 
 # Message for when a spot has not been filled and a placeholder tries to call it
 empty-spot: "No one!"
+
+webserver:
+  enabled: true
+  host: "0.0.0.0"
+  port: 7070

@@ -1,5 +1,6 @@
 package dev.jsinco.topvoter;
 
+import dev.jsinco.topvoter.obj.RecordedVoter;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -7,6 +8,7 @@ import java.io.File;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -59,12 +61,12 @@ public class VotersFile {
 
     // We need to return a list of all the voters the plugin has recorded in order from most votes to least
     public static Map<String, Integer> getTopVoters() {
-        Map<String, Integer> eventPlayers = new HashMap<>();
+        Map<String, Integer> voters = new HashMap<>();
         for (String key : VotersFile.get().getKeys(false)) {
-            eventPlayers.put(key, VotersFile.get().getInt(key));
+            voters.put(key, VotersFile.get().getInt(key));
         }
 
-        return eventPlayers.entrySet()
+        return voters.entrySet()
                 .stream()
                 .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
                 .collect(Collectors.toMap(
@@ -73,5 +75,11 @@ public class VotersFile {
                         (oldValue, newValue) -> oldValue,
                         LinkedHashMap::new
                 ));
+    }
+
+    public static List<RecordedVoter> getTopRecordedVoters() {
+        return getTopVoters().entrySet().stream()
+                .map(entry -> new RecordedVoter(entry.getKey(), entry.getValue()))
+                .collect(Collectors.toList());
     }
 }
