@@ -2,7 +2,6 @@ package dev.jsinco.topvoter.obj;
 
 import dev.jsinco.topvoter.Util;
 import org.bukkit.Bukkit;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.UUID;
 

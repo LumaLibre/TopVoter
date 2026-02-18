@@ -38,7 +38,7 @@ public final class TopVoter extends JavaPlugin {
             VotersFile.reset();
             plugin.getConfig().set("already-reset-day", true);
             plugin.saveConfig();
-            Bukkit.getScheduler().scheduleSyncDelayedTask(this, () ->
+            Bukkit.getGlobalRegionScheduler().runDelayed(this, (task) ->
                     getLogger().info(plugin.getConfig().getString("reset-log")), 100L);
         } else if (calendar.get(Calendar.DAY_OF_MONTH) != plugin.getConfig().getInt("reset-day") && plugin.getConfig().getBoolean("already-reset-day")) {
             plugin.getConfig().set("already-reset-day", false);

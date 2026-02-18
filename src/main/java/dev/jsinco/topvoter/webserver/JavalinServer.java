@@ -49,7 +49,7 @@ public class JavalinServer {
         String host = config.getString("webserver.host", "0.0.0.0");
         int port = config.getInt("webserver.port", 7070);
 
-        Bukkit.getScheduler().runTaskAsynchronously(TopVoter.getInstance(), () -> {
+        Bukkit.getAsyncScheduler().runNow(TopVoter.getInstance(), (task) -> {
             javalin.get("/top/{pos}", ctx -> {
                         int pos = Util.intOrDefault(ctx.pathParam("pos"), 1);
                         List<RecordedVoter> recordedVoters = VotersFile.getTopRecordedVoters();

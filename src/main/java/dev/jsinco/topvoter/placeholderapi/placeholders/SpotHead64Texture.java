@@ -31,7 +31,7 @@ public class SpotHead64Texture implements Placeholder {
 
 
         for (ProfileProperty profileProperty : voter.getPlayerProfile().getProperties()) {
-            if (profileProperty.getName().equalsIgnoreCase("texture")) {
+            if (profileProperty.getName().equalsIgnoreCase("textures")) {
                 return profileProperty.getValue();
             }
         }
